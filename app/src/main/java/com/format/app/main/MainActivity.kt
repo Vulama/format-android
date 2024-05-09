@@ -4,9 +4,10 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
-import androidx.compose.animation.EnterTransition
-import androidx.compose.animation.ExitTransition
 import androidx.compose.animation.ExperimentalAnimationApi
+import androidx.compose.animation.core.tween
+import androidx.compose.animation.fadeIn
+import androidx.compose.animation.fadeOut
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
@@ -16,9 +17,10 @@ import androidx.navigation.compose.rememberNavController
 import com.format.app.navigation.controller.NavHostControllerProvider
 import com.format.app.theme.ColorPalette
 import com.format.app.theme.ForMatTheme
-import com.format.welcome.ui.NavGraphs.root
+import com.format.onboarding.ui.NavGraphs.root
 import com.google.accompanist.navigation.material.ExperimentalMaterialNavigationApi
 import com.ramcosta.composedestinations.DestinationsNavHost
+import com.ramcosta.composedestinations.animations.defaults.DestinationEnterTransition
 import com.ramcosta.composedestinations.animations.defaults.RootNavGraphDefaultAnimations
 import com.ramcosta.composedestinations.animations.rememberAnimatedNavHostEngine
 import org.koin.android.ext.android.inject
@@ -32,8 +34,6 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         setContent {
-
-
             val navController = rememberNavController()
             navHostControllerProvider.inject(navController)
 
@@ -48,8 +48,8 @@ class MainActivity : ComponentActivity() {
                         navController = navController,
                         engine = rememberAnimatedNavHostEngine(
                             rootDefaultAnimations = RootNavGraphDefaultAnimations(
-                                enterTransition = { EnterTransition.None },
-                                exitTransition = { ExitTransition.None },
+                                enterTransition = { fadeIn(tween(200, 100)) },
+                                exitTransition = { fadeOut(tween(200)) },
                             )
                         ),
                     )

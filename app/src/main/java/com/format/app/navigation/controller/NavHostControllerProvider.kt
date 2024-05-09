@@ -12,7 +12,6 @@ import com.google.accompanist.navigation.material.ExperimentalMaterialNavigation
 
 interface NavHostControllerProvider {
 
-    @OptIn(ExperimentalMaterialNavigationApi::class)
     fun inject(navHostController: NavHostController)
 
     fun dispose()
@@ -56,7 +55,7 @@ interface NavHostControllerProvider {
                 listOf("Error parsing args: ${ex.message}")
             }
 
-            logger.i(ApplicationFlows.navigation, "Navigated to: ${currentRoute()}, args:$args")
+            logger.i(ApplicationFlows.Navigation, "Navigated to: ${currentRoute()}, args:$args")
         }
 
         override fun dispose() {
@@ -67,7 +66,7 @@ interface NavHostControllerProvider {
             try {
                 _navHostController?.navigate(route)
             } catch (ex: Exception) {
-                logger.w(ApplicationFlows.navigation, "There was an error navigating: $ex")
+                logger.w(ApplicationFlows.Navigation, "There was an error navigating: $ex")
             }
         }
 
@@ -83,10 +82,14 @@ interface NavHostControllerProvider {
             return context?.let { ctx ->
                 try {
                     ContextCompat.startActivity(ctx, ctx.createIntent(), null)
-                    logger.i(ApplicationFlows.navigation, "Navigated externally to: $destinationDescription")
+                    logger.i(ApplicationFlows.Navigation, "Navigated externally to: $destinationDescription")
                     true
                 } catch (ex: Exception) {
-                    logger.e(t = ex, tag = ApplicationFlows.navigation, message = "External navigation to $destinationDescription failed, reason: $destinationDescription")
+                    logger.e(
+                        t = ex,
+                        tag = ApplicationFlows.Navigation,
+                        message = "External navigation to $destinationDescription failed, reason: $destinationDescription"
+                    )
                     false
                 }
             } ?: false
@@ -101,7 +104,7 @@ interface NavHostControllerProvider {
                     _navHostController?.popBackStack()
                 }
             } catch (ex: Exception) {
-                logger.i(ApplicationFlows.navigation, "Error when removing from navStack: $ex")
+                logger.i(ApplicationFlows.Navigation, "Error when removing from navStack: $ex")
             }
         }
 

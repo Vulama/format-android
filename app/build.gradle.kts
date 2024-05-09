@@ -2,11 +2,12 @@ plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.jetbrains.kotlin.android)
     id("com.google.devtools.ksp").version("1.9.10-1.0.13")
+    id("org.jetbrains.kotlin.plugin.serialization").version("1.9.0")
 }
 
 android {
     flavorDimensions.add("flavor")
-    namespace = "com.format.format"
+    namespace = "com.format"
     compileSdk = 34
 
     buildFeatures {
@@ -14,7 +15,7 @@ android {
     }
 
     defaultConfig {
-        applicationId = "com.format.format"
+        applicationId = "com.format"
         minSdk = 26
         targetSdk = 34
         versionCode = 1
@@ -48,7 +49,6 @@ android {
         }
 
         getByName("debug") {
-            applicationIdSuffix = ".debug"
             isDebuggable = true
         }
     }
@@ -82,6 +82,7 @@ dependencies {
     implementation(libs.androidx.ui.graphics)
     implementation(libs.androidx.ui.tooling.preview)
     implementation(libs.androidx.material3)
+    implementation(libs.androidx.runtime.livedata)
 
     // Unit Testing Dependencies
     testImplementation(libs.junit)
@@ -96,6 +97,14 @@ dependencies {
     debugImplementation(libs.androidx.ui.tooling)
     debugImplementation(libs.androidx.ui.test.manifest)
 
+    // API Dependencies
+    implementation(libs.kotlinx.serialization.json)
+    implementation(libs.retrofit)
+    implementation(libs.converter.kotlinx.serialization)
+
+    // Security Dependencies
+    implementation(libs.androidx.security.crypto)
+
     // Feature Dependencies
     implementation(libs.koin.androidx.compose)
     implementation(libs.animations.core)
@@ -103,4 +112,5 @@ dependencies {
     ksp(libs.ksp)
     implementation(libs.accompanist.systemuicontroller)
     implementation(libs.coil.compose)
+    api(libs.arrow.core)
 }
