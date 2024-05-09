@@ -6,9 +6,8 @@ import android.net.Uri
 import android.os.Bundle
 import androidx.core.content.ContextCompat
 import androidx.navigation.NavHostController
-import com.format.domain.infrastructure.Logger
+import com.format.common.infrastructure.logger.Logger
 import com.format.domain.model.ApplicationFlows
-import com.google.accompanist.navigation.material.BottomSheetNavigator
 import com.google.accompanist.navigation.material.ExperimentalMaterialNavigationApi
 
 interface NavHostControllerProvider {
