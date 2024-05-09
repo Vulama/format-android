@@ -20,8 +20,10 @@ import com.format.app.theme.ColorPalette
 import com.format.common.ui.VerticalSpacer
 import com.format.format.R
 import com.ramcosta.composedestinations.annotation.Destination
+import com.ramcosta.composedestinations.annotation.RootNavGraph
 
-@Destination(start = true)
+@Destination
+@RootNavGraph(start = true)
 @Composable
 fun WelcomeScreen() {
     Column(

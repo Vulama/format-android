@@ -1,6 +1,6 @@
 package com.format.data.infrastructure
 
-import com.format.domain.infrastructure.Logger
+import com.format.common.infrastructure.logger.Logger
 
 
 // todo implement firebase logger

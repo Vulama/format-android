@@ -5,8 +5,13 @@ plugins {
 }
 
 android {
+    flavorDimensions.add("flavor")
     namespace = "com.format.format"
     compileSdk = 34
+
+    buildFeatures {
+        buildConfig = true
+    }
 
     defaultConfig {
         applicationId = "com.format.format"
@@ -19,12 +24,32 @@ android {
         vectorDrawables {
             useSupportLibrary = true
         }
+
+
+    }
+
+    productFlavors {
+        create("dev") {
+            dimension = "flavor"
+            applicationIdSuffix = ".staging"
+            versionNameSuffix = "-staging"
+        }
+
+        create("prod") {
+            dimension = "flavor"
+            versionNameSuffix = "-production"
+        }
     }
 
     buildTypes {
-        release {
-            isMinifyEnabled = false
-            proguardFiles(getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro")
+        getByName("release") {
+            isMinifyEnabled = true
+            proguardFiles(getDefaultProguardFile("proguard-android.txt"), "proguard-rules.pro")
+        }
+
+        getByName("debug") {
+            applicationIdSuffix = ".debug"
+            isDebuggable = true
         }
     }
     compileOptions {
