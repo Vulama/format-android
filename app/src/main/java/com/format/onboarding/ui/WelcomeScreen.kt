@@ -1,9 +1,11 @@
-package com.format.welcome.ui
+package com.format.onboarding.ui
 
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Button
@@ -13,19 +15,39 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.format.app.theme.ColorPalette
 import com.format.common.ui.VerticalSpacer
-import com.format.format.R
+import com.format.R
+import com.format.onboarding.viewModel.WelcomeViewModel
 import com.ramcosta.composedestinations.annotation.Destination
 import com.ramcosta.composedestinations.annotation.RootNavGraph
+import org.koin.androidx.compose.getViewModel
 
 @Destination
 @RootNavGraph(start = true)
 @Composable
 fun WelcomeScreen() {
+    val viewModel: WelcomeViewModel = getViewModel()
+
+    WelcomeScreenStateless(
+        onLoginClicked = { viewModel.onLoginClicked() },
+        onRegisterClicked = { viewModel.onRegisterClicked() },
+        onContinueAsGuestClicked = { viewModel.onContinueAsGuestClicked() },
+    )
+}
+
+
+@Composable
+private fun WelcomeScreenStateless(
+    onLoginClicked: () -> Unit,
+    onRegisterClicked: () -> Unit,
+    onContinueAsGuestClicked: () -> Unit,
+) {
+
     Column(
         modifier = Modifier
             .fillMaxSize()
@@ -58,7 +80,7 @@ fun WelcomeScreen() {
             horizontalAlignment = Alignment.CenterHorizontally,
         ) {
             Button(
-                onClick = {},
+                onClick = { onLoginClicked() },
             ) {
                 Text(
                     text = "Login",
@@ -69,7 +91,7 @@ fun WelcomeScreen() {
             VerticalSpacer(distance = 8.dp)
 
             Button(
-                onClick = {},
+                onClick = { onRegisterClicked() },
             ) {
                 Text(
                     text = "Register",
@@ -77,11 +99,15 @@ fun WelcomeScreen() {
                 )
             }
 
-            VerticalSpacer(distance = 16.dp)
+            VerticalSpacer(distance = 12.dp)
 
             Text(
                 text = "Continue as Guest",
                 style = MaterialTheme.typography.labelMedium,
+                modifier = Modifier
+                    .clip(RoundedCornerShape(12.dp))
+                    .clickable { onContinueAsGuestClicked() }
+                    .padding(vertical = 4.dp, horizontal = 8.dp),
             )
         }
     }
@@ -90,5 +116,5 @@ fun WelcomeScreen() {
 @Preview
 @Composable
 fun WelcomeScreenPreview() {
-    WelcomeScreen()
+    WelcomeScreenStateless({}, {}, {})
 }

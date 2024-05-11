@@ -2,5 +2,7 @@ package com.format.domain.model
 
 object ApplicationFlows {
 
-    const val navigation = "[Navigation]"
+    const val Navigation = "[Navigation]"
+
+    const val NetworkingAuthorization = "[NetworkingAuthorization]"
 }

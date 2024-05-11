@@ -1,7 +1,6 @@
-package com.format.data.infrastructure
+package com.format.data.infrastructure.logger
 
 import com.format.common.infrastructure.logger.Logger
-
 
 // todo implement firebase logger
 class ForMatLogger : Logger {
