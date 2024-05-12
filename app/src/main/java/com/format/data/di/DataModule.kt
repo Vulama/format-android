@@ -7,13 +7,15 @@ import com.format.common.infrastructure.logger.Logger
 import com.format.data.api.RestrictedApi
 import com.format.data.api.PublicApi
 import com.format.data.formulas.repository.FormulasRepositoryImpl
+import com.format.data.formulas.store.FormulaStoreImpl
 import com.format.data.infrastructure.dateTime.DateTimeProvider
 import com.format.data.infrastructure.preferences.ForMatPreferences
 import com.format.data.networking.di.getAuthRetrofit
 import com.format.data.networking.di.getGeneralRetrofit
-import com.format.data.networking.token.TokenRepository
+import com.format.data.networking.token.TokenStore
 import com.format.data.user.repository.UserRepositoryImpl
 import com.format.domain.formulas.repository.FormulasRepository
+import com.format.domain.formulas.store.FormulaStore
 import com.format.domain.user.repository.UserRepository
 import org.koin.android.ext.koin.androidApplication
 import org.koin.dsl.module
@@ -39,6 +41,7 @@ val dataModule = module {
     single<FormulasRepository> {
         FormulasRepositoryImpl(
             get<PublicApi>(),
+            get<RestrictedApi>(),
             getIODispatcher(),
         )
     }
@@ -47,7 +50,13 @@ val dataModule = module {
         UserRepositoryImpl(
             get<PublicApi>(),
             getIODispatcher(),
-            get<TokenRepository>(),
+            get<TokenStore>(),
+        )
+    }
+
+    single<FormulaStore> {
+        FormulaStoreImpl(
+            get<SharedPreferences>(),
         )
     }
 }

@@ -22,6 +22,7 @@ import androidx.compose.ui.unit.dp
 import com.format.app.theme.ColorPalette
 import com.format.common.ui.VerticalSpacer
 import com.format.R
+import com.format.common.ui.NormalButton
 import com.format.onboarding.viewModel.WelcomeViewModel
 import com.ramcosta.composedestinations.annotation.Destination
 import com.ramcosta.composedestinations.annotation.RootNavGraph
@@ -79,7 +80,7 @@ private fun WelcomeScreenStateless(
         Column(
             horizontalAlignment = Alignment.CenterHorizontally,
         ) {
-            Button(
+            NormalButton(
                 onClick = { onLoginClicked() },
             ) {
                 Text(
@@ -90,7 +91,7 @@ private fun WelcomeScreenStateless(
 
             VerticalSpacer(distance = 8.dp)
 
-            Button(
+            NormalButton(
                 onClick = { onRegisterClicked() },
             ) {
                 Text(

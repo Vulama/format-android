@@ -9,7 +9,7 @@ import com.format.data.infrastructure.dateTime.DateTimeProvider
 import com.format.data.networking.interceptor.AuthorizationInterceptor
 import com.format.data.networking.serialization.JsonProvider
 import com.format.data.networking.serialization.JsonProvider.Companion.asApplicationJsonConverterFactory
-import com.format.data.networking.token.TokenRepository
+import com.format.data.networking.token.TokenStore
 import com.format.data.networking.util.TokenRefresher
 import com.format.data.networking.util.TokenValidityChecker
 import kotlinx.serialization.json.Json
@@ -59,7 +59,7 @@ val networkingModule = module {
 
     single<AuthorizationInterceptor> {
         AuthorizationInterceptor(
-            tokenRepository = get<TokenRepository>(),
+            tokenStore = get<TokenStore>(),
             tokenValidityChecker = get<TokenValidityChecker>(),
             tokenRefresher = get<TokenRefresher>(),
             logger = get<Logger>(),
@@ -97,8 +97,8 @@ val networkingModule = module {
         ConnectionPool(MAX_COUNT_IDLE_CONNECTIONS, IDLE_CONNECTION_LIFETIME, TimeUnit.MINUTES)
     }
 
-    single<TokenRepository> {
-        TokenRepository.Default(
+    single<TokenStore> {
+        TokenStore.Default(
             get<SharedPreferences>(),
         )
     }
@@ -106,7 +106,7 @@ val networkingModule = module {
     single<TokenRefresher> {
         TokenRefresher.Default(
             getIODispatcher(),
-            get<TokenRepository>(),
+            get<TokenStore>(),
             get<PublicApi>(),
         )
     }

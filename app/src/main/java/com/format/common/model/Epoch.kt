@@ -50,6 +50,8 @@ value class Epoch(val value: Long) {
     }
 }
 
+fun Epoch.plusHours(count: Long): Epoch = Epoch(value + count * 60 * 60)
+
 fun Long.toEpoch(): Epoch = Epoch(this)
 
 fun String.toEpoch(): Epoch {

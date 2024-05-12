@@ -34,7 +34,6 @@ interface NavHostControllerProvider {
 
         private var _navHostController: NavHostController? = null
 
-        @OptIn(ExperimentalMaterialNavigationApi::class)
         override fun inject(navHostController: NavHostController) {
             _navHostController = navHostController
 

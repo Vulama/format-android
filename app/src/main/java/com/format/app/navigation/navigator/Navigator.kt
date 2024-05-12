@@ -9,14 +9,17 @@ import kotlinx.coroutines.withContext
 
 interface Navigator {
 
-    fun navigate(route: String)
+    fun navigate(route: String, clearStack: Boolean = false)
 
     fun goBack()
 
     class Default(
         private val navHostControllerProvider: NavHostControllerProvider,
     ) : Navigator {
-        override fun navigate(route: String) {
+        override fun navigate(route: String, clearStack: Boolean) {
+            if (clearStack) {
+                while (navHostControllerProvider.popBackStack()) {}
+            }
             navHostControllerProvider.navigate(route)
         }
 

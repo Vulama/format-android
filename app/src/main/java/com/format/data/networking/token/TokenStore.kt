@@ -8,7 +8,7 @@ import kotlinx.serialization.json.Json
 private const val ACCESS_TOKEN_PREFERENCE_KEY = "access-token-preference-key"
 private const val REFRESH_TOKEN_PREFERENCE_KEY = "refresh-token-preference-key"
 
-interface TokenRepository {
+interface TokenStore {
 
     fun get(): Tokens
 
@@ -18,7 +18,7 @@ interface TokenRepository {
 
     class Default(
         private val sharedPreferences: SharedPreferences,
-    ) : TokenRepository {
+    ) : TokenStore {
         override fun get() = try {
             val tokenAsString = sharedPreferences.getString(ACCESS_TOKEN_PREFERENCE_KEY, emptyTokenSerialized) ?: emptyTokenSerialized
             val refreshTokenAsString = sharedPreferences.getString(REFRESH_TOKEN_PREFERENCE_KEY, emptyTokenSerialized) ?: emptyTokenSerialized

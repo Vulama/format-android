@@ -5,6 +5,9 @@ import com.format.app.navigation.di.navigationModule
 import com.format.common.di.commonModule
 import com.format.data.di.dataModule
 import com.format.data.networking.di.networkingModule
+import com.format.download.di.downloadModule
+import com.format.formulas.di.formulasModule
+import com.format.home.di.homeModule
 import com.format.onboarding.di.onboardingModule
 import org.koin.android.ext.koin.androidContext
 import org.koin.android.ext.koin.androidLogger
@@ -21,6 +24,9 @@ fun Application.initDI() {
                 commonModule,
                 onboardingModule,
                 networkingModule,
+                homeModule,
+                formulasModule,
+                downloadModule,
             )
         )
     }

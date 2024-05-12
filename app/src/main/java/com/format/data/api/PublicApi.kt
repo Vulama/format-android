@@ -2,6 +2,7 @@ package com.format.data.api
 
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
+import retrofit2.Response
 import retrofit2.http.Body
 import retrofit2.http.GET
 import retrofit2.http.POST
@@ -11,7 +12,12 @@ interface PublicApi {
     @POST("/auth/login")
     suspend fun login(
         @Body request: LoginRequest
-    ): LoginResponseDto
+    ): Response<LoginResponseDto>
+
+    @POST("/auth/register")
+    suspend fun register(
+        @Body request: RegisterRequest
+    ): Response<RegisterResponseDto>
 
     @POST("/auth/refreshToken")
     suspend fun refreshToken(
@@ -43,6 +49,26 @@ data class LoginResponseDto(
 )
 
 @Serializable
+data class RegisterRequest(
+    @SerialName("username") val username: String,
+    @SerialName("password") val password: String,
+)
+
+@Serializable
+data class RegisterResponseDto(
+    @SerialName("message") val message: String,
+    @SerialName("user") val user: UserDto,
+)
+
+@Serializable
+data class UserDto(
+    @SerialName("id") val id: Int,
+    @SerialName("username") val username: String,
+    @SerialName("passwordHash") val passwordHash: String,
+)
+
+
+@Serializable
 data class RefreshTokenResponseDto(
     @SerialName("accessToken") val accessToken: String,
     @SerialName("accessTokenExpiresAt") val accessTokenExpiresAt: String,
@@ -58,8 +84,8 @@ data class GroupDto(
 
 @Serializable
 data class FormulaDto(
-    @SerialName("id") val id: Int,
-    @SerialName("groupId") val groupId: Int,
+    @SerialName("title") val title: String,
     @SerialName("mathFormula") val mathFormula: String,
     @SerialName("description") val description: String,
+    @SerialName("id") val id: Int? = null,
 )

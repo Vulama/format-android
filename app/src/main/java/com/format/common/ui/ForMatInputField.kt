@@ -18,7 +18,7 @@ import com.format.app.theme.ColorPalette
 fun ForMatInputField(
     value: String,
     onValueChange: (String) -> Unit,
-    modifier: Modifier,
+    modifier: Modifier = Modifier,
     label: @Composable (() -> Unit)? = null,
     visualTransformation: VisualTransformation = VisualTransformation.None,
 ) {
