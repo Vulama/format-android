@@ -14,13 +14,12 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Scaffold
 import androidx.compose.ui.Modifier
 import androidx.navigation.compose.rememberNavController
+import com.format.NavGraphs.root
 import com.format.app.navigation.controller.NavHostControllerProvider
 import com.format.app.theme.ColorPalette
 import com.format.app.theme.ForMatTheme
-import com.format.onboarding.ui.NavGraphs.root
 import com.google.accompanist.navigation.material.ExperimentalMaterialNavigationApi
 import com.ramcosta.composedestinations.DestinationsNavHost
-import com.ramcosta.composedestinations.animations.defaults.DestinationEnterTransition
 import com.ramcosta.composedestinations.animations.defaults.RootNavGraphDefaultAnimations
 import com.ramcosta.composedestinations.animations.rememberAnimatedNavHostEngine
 import org.koin.android.ext.android.inject

@@ -2,7 +2,7 @@ package com.format.data.networking.interceptor
 
 import com.format.common.infrastructure.logger.Logger
 import com.format.data.networking.token.Token
-import com.format.data.networking.token.TokenRepository
+import com.format.data.networking.token.TokenStore
 import com.format.data.networking.util.TokenRefresher
 import com.format.data.networking.util.TokenValidityChecker
 import com.format.domain.model.ApplicationFlows
@@ -13,7 +13,7 @@ import okhttp3.Request
 import okhttp3.Response
 
 class AuthorizationInterceptor(
-    private val tokenRepository: TokenRepository,
+    private val tokenStore: TokenStore,
     private val tokenValidityChecker: TokenValidityChecker,
     private val tokenRefresher: TokenRefresher,
     private val logger: Logger
@@ -22,7 +22,7 @@ class AuthorizationInterceptor(
     private val refreshTokenLock: Any = Any()
 
     override fun intercept(chain: Chain): Response {
-        val tokens = tokenRepository.get()
+        val tokens = tokenStore.get()
         val accessToken = tokens.accessToken
         logger.v(ApplicationFlows.NetworkingAuthorization, "Access token: $accessToken")
 
@@ -31,7 +31,7 @@ class AuthorizationInterceptor(
             // Interception happens on a background thread and multiple threads could fire network request with outdated token
             // That is why we synchronize token refresh
             val refreshedToken = synchronized(refreshTokenLock) {
-                val newAccessToken = tokenRepository.get().accessToken
+                val newAccessToken = tokenStore.get().accessToken
                 if (accessToken != newAccessToken) {
                     logger.i(ApplicationFlows.NetworkingAuthorization, "Token already refreshed")
                     // Access token has been refreshed by other thread

@@ -15,6 +15,7 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
@@ -24,19 +25,35 @@ import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.unit.dp
 import com.format.app.theme.ColorPalette
 import com.format.common.ui.ForMatInputField
+import com.format.common.ui.NormalButton
+import com.format.common.ui.Spinner
 import com.format.common.ui.VerticalSpacer
+import com.format.onboarding.viewModel.LoginViewModel
+import com.format.onboarding.viewModel.RegisterViewModel
 import com.ramcosta.composedestinations.annotation.Destination
+import org.koin.androidx.compose.getViewModel
 
 @Destination
 @Composable
 fun RegisterScreen() {
-    RegisterScreenStateless(
-        onContinueClicked = { username, pass -> Unit }
-    )
+    val viewModel: RegisterViewModel = getViewModel()
+    val viewState = viewModel.uiState.observeAsState().value
+
+    viewState?.let {
+        RegisterScreenStateless(
+            isProcessing = viewState.isProcessing,
+            message = viewState.errorMessage,
+            onContinueClicked = { username, password -> viewModel.registerUser(username, password) }
+        )
+    }
 }
 
 @Composable
-private fun RegisterScreenStateless(onContinueClicked: (String, String) -> Unit) {
+private fun RegisterScreenStateless(
+    isProcessing: Boolean,
+    message: String,
+    onContinueClicked: (String, String) -> Unit,
+) {
     var username by remember { mutableStateOf("") }
     var password by remember { mutableStateOf("") }
 
@@ -53,6 +70,10 @@ private fun RegisterScreenStateless(onContinueClicked: (String, String) -> Unit)
             text = "Register",
             style = MaterialTheme.typography.headlineLarge,
         )
+
+        if (isProcessing) {
+            Spinner()
+        }
 
         Column(
             modifier = Modifier.fillMaxWidth(),
@@ -80,9 +101,17 @@ private fun RegisterScreenStateless(onContinueClicked: (String, String) -> Unit)
                     .padding(horizontal = 24.dp),
             )
 
-            VerticalSpacer(32.dp)
+            VerticalSpacer(distance = 12.dp)
 
-            Button(
+            Text(
+                text = message,
+                color = ColorPalette.Error,
+                style = MaterialTheme.typography.labelMedium,
+            )
+
+            VerticalSpacer(distance = 12.dp)
+
+            NormalButton(
                 onClick = { onContinueClicked(username, password) },
             ) {
                 Text(

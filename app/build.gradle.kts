@@ -1,3 +1,7 @@
+import org.gradle.api.tasks.wrapper.internal.WrapperGenerator.getPropertiesFile
+import java.io.FileInputStream
+import java.util.Properties
+
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.jetbrains.kotlin.android)
@@ -6,7 +10,7 @@ plugins {
 }
 
 android {
-    flavorDimensions.add("flavor")
+    flavorDimensions.add("environment")
     namespace = "com.format"
     compileSdk = 34
 
@@ -25,20 +29,26 @@ android {
         vectorDrawables {
             useSupportLibrary = true
         }
-
-
     }
 
     productFlavors {
         create("dev") {
-            dimension = "flavor"
-            applicationIdSuffix = ".staging"
-            versionNameSuffix = "-staging"
+            dimension = "environment"
+            applicationIdSuffix = ".dev"
+            versionNameSuffix = "-dev"
+
+            getPropertiesFile("./config/dev.properties").forEach { (key, value) ->
+                buildConfigField("String", key.toString(), value.toString())
+            }
         }
 
         create("prod") {
-            dimension = "flavor"
+            dimension = "environment"
             versionNameSuffix = "-production"
+
+            getPropertiesFile("./config/prod.properties").forEach { (key, value) ->
+                buildConfigField("String", key.toString(), value.toString())
+            }
         }
     }
 
@@ -112,5 +122,12 @@ dependencies {
     ksp(libs.ksp)
     implementation(libs.accompanist.systemuicontroller)
     implementation(libs.coil.compose)
+    implementation(libs.coil.svg)
     api(libs.arrow.core)
+}
+
+fun getPropertiesFile(path: String): Properties {
+    val properties = Properties()
+    properties.load(file(path).inputStream())
+    return properties
 }
