@@ -8,8 +8,10 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.format.R
 import com.format.app.theme.ColorPalette
 import com.format.common.ui.ForMatInputField
 import com.format.common.ui.NormalButton
@@ -59,7 +61,7 @@ fun EditGroupScreenStateless(
             VerticalSpacer(distance = 16.dp)
 
             Text(
-                text = "Create a new group",
+                text = stringResource(id = R.string.edit_group_screen_title),
                 style = MaterialTheme.typography.headlineLarge.copy(ColorPalette.Primary),
             )
 
@@ -67,7 +69,7 @@ fun EditGroupScreenStateless(
 
             Text(
                 modifier = Modifier.fillMaxWidth(),
-                text = "Group Name",
+                text = stringResource(id = R.string.edit_group_screen_group_title),
                 style = MaterialTheme.typography.titleLarge.copy(ColorPalette.Primary),
             )
 
@@ -101,7 +103,7 @@ fun EditGroupScreenStateless(
                     formulas = formulas.plus(FormulaEntry())
                 }
             ) {
-                Text(text = "Add Empty Formula")
+                Text(text = stringResource(id = R.string.edit_group_screen_add_formula_button_label))
             }
         }
 
@@ -114,7 +116,7 @@ fun EditGroupScreenStateless(
                 enabled = groupName != ""
             ) {
                 Text(
-                    text = "Create Local Formula Group",
+                    text = stringResource(id = R.string.edit_group_screen_create_group_button_label),
                     style = MaterialTheme.typography.titleMedium,
                 )
             }
@@ -127,7 +129,7 @@ fun EditGroupScreenStateless(
                 enabled = groupName != ""
             ) {
                 Text(
-                    text = "Update Group",
+                    text = stringResource(id = R.string.edit_group_screen_update_group_button_label),
                     style = MaterialTheme.typography.titleMedium,
                 )
             }
@@ -148,7 +150,7 @@ fun FormulaEntryInput(
             .padding(bottom = 16.dp)
     ) {
         Text(
-            text = "Formula ${(index + 1)}",
+            text = stringResource(R.string.edit_group_screen_formula_label, index + 1),
             style = MaterialTheme.typography.titleSmall.copy(ColorPalette.Secondary),
         )
 
@@ -185,7 +187,7 @@ fun FormulaEntryInput(
             modifier = Modifier.align(Alignment.End)
         ) {
             Text(
-                text = "Remove",
+                text = stringResource(id = R.string.edit_group_screen_remove_formula),
                 style = MaterialTheme.typography.bodySmall,
             )
         }
@@ -195,12 +197,12 @@ fun FormulaEntryInput(
 
 @Preview
 @Composable
-fun PreviewEditGroupScreen(){
+fun PreviewEditGroupScreen() {
     EditGroupScreenStateless(
         true,
         FormulaGroup("", listOf(FormulaEntry())),
-        {_, _ -> },
-        {_, _ -> },
+        { _, _ -> },
+        { _, _ -> },
     )
 }
 

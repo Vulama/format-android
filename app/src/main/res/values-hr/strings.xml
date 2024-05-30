@@ -1,0 +1,43 @@
+<resources>
+    <string name="app_name">ForMat</string>
+
+    <string name="welcome_screen_title">Dobrodošli u ForMat</string>
+    <string name="welcome_screen_login_button">Prijava</string>
+    <string name="welcome_screen_register_button">Registracija</string>
+
+    <string name="login_screen_title">Prijava</string>
+    <string name="login_screen_username_hint">Korisničko ime</string>
+    <string name="login_screen_password_hint">Lozinka</string>
+    <string name="login_screen_button_label">Nastavi</string>
+
+    <string name="register_screen_title">Registracija</string>
+    <string name="register_screen_username_hint">Korisničko ime</string>
+    <string name="register_screen_password_hint">Lozinka</string>
+    <string name="register_screen_button_label">Nastavi</string>
+
+    <string name="main_screen_title">Formule</string>
+    <string name="main_screen_favourite_group_title">Omiljene formule</string>
+    <string name="main_screen_local_group_title">Lokalno spremljene formule</string>
+    <string name="main_screen_remote_group_title">Preuzete formule</string>
+    <string name="main_screen_download_button_label">Preuzmi formule</string>
+    <string name="main_screen_add_group_label">Dodaj formule</string>
+
+    <string name="download_screen_title">Preuzmi formulu</string>
+    <string name="download_screen_button_label">Preuzmi odabranu grupu</string>
+
+    <string name="edit_group_screen_title">Kreiraj novu grupu</string>
+    <string name="edit_group_screen_group_title">Naziv grupe</string>
+    <string name="edit_group_screen_add_formula_button_label">Dodaj praznu formulu</string>
+    <string name="edit_group_screen_create_group_button_label">Kreiraj lokalnu grupu formula</string>
+    <string name="edit_group_screen_update_group_button_label">Ažuriraj grupu</string>
+    <string name="edit_group_screen_formula_label">Formula %s</string>
+    <string name="edit_group_screen_remove_formula">Ukloni</string>
+
+    <string name="formula_screen_reaction_title">Razumijete li ovu formulu?</string>
+    <string name="formula_screen_reaction_positive_label">Razumijem</string>
+    <string name="formula_screen_reaction_negative_label">Ne razumijem</string>
+
+    <string name="group_screen_publish_button_label">Objavi grupu</string>
+    <string name="group_screen_edit_button_label">Uredi grupu</string>
+    <string name="group_screen_remove_button_label">Ukloni grupu</string>
+</resources>

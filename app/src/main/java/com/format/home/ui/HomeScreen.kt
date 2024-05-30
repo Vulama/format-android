@@ -32,6 +32,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -92,7 +93,7 @@ fun HomeScreenStateless(
             horizontalArrangement = Arrangement.SpaceBetween,
         ) {
             Text(
-                text = "Formulas",
+                text = stringResource(id = R.string.main_screen_title),
                 style = MaterialTheme.typography.headlineLarge.copy(
                     color = ColorPalette.Primary,
                     fontWeight = FontWeight.Bold,
@@ -110,7 +111,7 @@ fun HomeScreenStateless(
         }
 
         if (favouriteFormulas.isNotEmpty()) {
-            SectionWithTitle(title = "Favourite Formulas") {
+            SectionWithTitle(title = stringResource(id = R.string.main_screen_favourite_group_title)) {
                 FormulaList(favouriteFormulas, onFormulaGroupClicked)
             }
 
@@ -120,7 +121,7 @@ fun HomeScreenStateless(
         }
 
         if (localFormulas.isNotEmpty()) {
-            SectionWithTitle(title = "Local Formulas") {
+            SectionWithTitle(title = stringResource(id = R.string.main_screen_local_group_title)) {
                 FormulaList(localFormulas, onFormulaGroupClicked)
             }
 
@@ -130,7 +131,7 @@ fun HomeScreenStateless(
         }
 
         if (remoteFormulas.isNotEmpty()) {
-            SectionWithTitle(title = "Remote Formulas") {
+            SectionWithTitle(title = stringResource(id = R.string.main_screen_remote_group_title)) {
                 FormulaList(remoteFormulas, onFormulaGroupClicked)
             }
         }
@@ -143,14 +144,14 @@ fun HomeScreenStateless(
                 .align(Alignment.CenterHorizontally)
                 .padding(top = 8.dp),
         ) {
-            Text(text = "Download Formulas")
+            Text(text = stringResource(id = R.string.main_screen_download_button_label))
         }
 
         NormalButton(
             onClick = { onAddFormulaClick() },
             modifier = Modifier.align(Alignment.CenterHorizontally)
         ) {
-            Text(text = "Add Formulas")
+            Text(text = stringResource(id = R.string.main_screen_add_group_label))
         }
     }
 }

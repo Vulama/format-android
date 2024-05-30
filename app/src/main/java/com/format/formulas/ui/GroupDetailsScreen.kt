@@ -25,10 +25,12 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.format.R
 import com.format.app.theme.ColorPalette
 import com.format.common.ui.AnalyticsTable
 import com.format.common.ui.ForMatButtonColors
@@ -157,7 +159,7 @@ fun GroupDetailsScreenStateless(
                     enabled = !isPublishInProgress && !isGroupPublished,
                     isLoading = isPublishInProgress,
                 ) {
-                    Text(text = "Publish Group")
+                    Text(text = stringResource(id = R.string.group_screen_publish_button_label))
                 }
 
                 HorizontalSpacer(distance = 16.dp)
@@ -166,7 +168,7 @@ fun GroupDetailsScreenStateless(
                     onClick = onEditGroupClicked,
                     modifier = Modifier.padding(top = 16.dp),
                 ) {
-                    Text(text = "Edit Group")
+                    Text(text = stringResource(id = R.string.group_screen_edit_button_label))
                 }
             }
 
@@ -177,7 +179,7 @@ fun GroupDetailsScreenStateless(
             modifier = Modifier.padding(top = 8.dp),
             colors = ForMatButtonColors.Alert()
         ) {
-            Text(text = "Remove Group")
+            Text(text = stringResource(id = R.string.group_screen_remove_button_label))
         }
 
         VerticalSpacer(distance = 24.dp)
@@ -215,7 +217,7 @@ fun FormulaItem(
 
 @Preview
 @Composable
-fun PreviewGroupDetailsScreen(){
+fun PreviewGroupDetailsScreen() {
     GroupDetailsScreenStateless(
         emptyList(),
         "Test",

@@ -1,3 +1,43 @@
 <resources>
     <string name="app_name">ForMat</string>
+
+    <string name="welcome_screen_title">Welcome to ForMat</string>
+    <string name="welcome_screen_login_button">Login</string>
+    <string name="welcome_screen_register_button">Register</string>
+
+    <string name="login_screen_title">Login</string>
+    <string name="login_screen_username_hint">Username</string>
+    <string name="login_screen_password_hint">Password</string>
+    <string name="login_screen_button_label">Continue</string>
+
+    <string name="register_screen_title">Register</string>
+    <string name="register_screen_username_hint">Username</string>
+    <string name="register_screen_password_hint">Password</string>
+    <string name="register_screen_button_label">Continue</string>
+
+    <string name="main_screen_title">Formulas</string>
+    <string name="main_screen_favourite_group_title">Favourite Formulas</string>
+    <string name="main_screen_local_group_title">Local Formulas</string>
+    <string name="main_screen_remote_group_title">Remote Formulas</string>
+    <string name="main_screen_download_button_label">Download Formulas</string>
+    <string name="main_screen_add_group_label">Add Formulas</string>
+
+    <string name="download_screen_title">Download Formula</string>
+    <string name="download_screen_button_label">Download Selected Group</string>
+
+    <string name="edit_group_screen_title">Create a new group</string>
+    <string name="edit_group_screen_group_title">Group Name</string>
+    <string name="edit_group_screen_add_formula_button_label">Add Empty Formula</string>
+    <string name="edit_group_screen_create_group_button_label">Create Local Formula Group</string>
+    <string name="edit_group_screen_update_group_button_label">Update Group</string>
+    <string name="edit_group_screen_formula_label">Formula %s</string>
+    <string name="edit_group_screen_remove_formula">Remove</string>
+
+    <string name="formula_screen_reaction_title">Do you understand this formula?</string>
+    <string name="formula_screen_reaction_positive_label">I do</string>
+    <string name="formula_screen_reaction_negative_label">I don\'t</string>
+
+    <string name="group_screen_publish_button_label">Publish Group</string>
+    <string name="group_screen_edit_button_label">Edit Group</string>
+    <string name="group_screen_remove_button_label">Remove Group</string>
 </resources>

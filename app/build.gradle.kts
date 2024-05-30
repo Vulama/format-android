@@ -29,6 +29,8 @@ android {
         vectorDrawables {
             useSupportLibrary = true
         }
+        resourceConfigurations.add("en")
+        resourceConfigurations.add("hr")
     }
 
     productFlavors {

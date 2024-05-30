@@ -17,6 +17,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.format.app.theme.ColorPalette
@@ -69,7 +70,7 @@ private fun WelcomeScreenStateless(
             VerticalSpacer(distance = 16.dp)
 
             Text(
-                text = "Welcome to ForMat",
+                text = stringResource(id = R.string.welcome_screen_title),
                 style = MaterialTheme.typography.headlineMedium,
             )
         }
@@ -82,7 +83,7 @@ private fun WelcomeScreenStateless(
                 onClick = { onLoginClicked() },
             ) {
                 Text(
-                    text = "Login",
+                    text = stringResource(id = R.string.welcome_screen_login_button),
                     style = MaterialTheme.typography.titleMedium,
                 )
             }
@@ -93,7 +94,7 @@ private fun WelcomeScreenStateless(
                 onClick = { onRegisterClicked() },
             ) {
                 Text(
-                    text = "Register",
+                    text = stringResource(id = R.string.welcome_screen_register_button),
                     style = MaterialTheme.typography.titleMedium,
                 )
             }

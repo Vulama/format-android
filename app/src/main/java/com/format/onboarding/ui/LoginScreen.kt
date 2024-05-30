@@ -19,8 +19,10 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.unit.dp
+import com.format.R
 import com.format.app.theme.ColorPalette
 import com.format.common.ui.ForMatInputField
 import com.format.common.ui.NormalButton
@@ -64,7 +66,7 @@ private fun LoginScreenStateless(
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
         Text(
-            text = "Login",
+            text = stringResource(id = R.string.login_screen_title),
             style = MaterialTheme.typography.headlineLarge,
         )
 
@@ -80,7 +82,7 @@ private fun LoginScreenStateless(
             ForMatInputField(
                 value = username,
                 onValueChange = { username = it },
-                label = { Text("Username") },
+                label = { Text(stringResource(id = R.string.login_screen_username_hint)) },
                 modifier = Modifier
                     .fillMaxWidth()
                     .padding(horizontal = 24.dp),
@@ -91,7 +93,7 @@ private fun LoginScreenStateless(
             ForMatInputField(
                 value = password,
                 onValueChange = { password = it },
-                label = { Text("Password") },
+                label = { Text(stringResource(id = R.string.login_screen_password_hint)) },
                 visualTransformation = PasswordVisualTransformation(),
                 modifier = Modifier
                     .fillMaxWidth()
@@ -112,7 +114,7 @@ private fun LoginScreenStateless(
                 onClick = { onContinueClicked(username, password) },
             ) {
                 Text(
-                    text = "Continue",
+                    text = stringResource(id = R.string.login_screen_button_label),
                     style = MaterialTheme.typography.titleMedium,
                 )
             }
