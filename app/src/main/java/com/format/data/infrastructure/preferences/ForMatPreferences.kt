@@ -5,7 +5,7 @@ import android.content.SharedPreferences
 import androidx.security.crypto.EncryptedSharedPreferences
 import androidx.security.crypto.MasterKeys
 
-private const val secretSharedPrefsFileName = "format_secret_shared_preferences"
+private const val secretSharedPrefsFileName = "format_secret_shared_preferences_file"
 
 class ForMatPreferences private constructor() {
 

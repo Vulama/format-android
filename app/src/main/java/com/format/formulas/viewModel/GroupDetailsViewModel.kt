@@ -6,6 +6,9 @@ import androidx.lifecycle.asLiveData
 import androidx.lifecycle.viewModelScope
 import arrow.core.getOrElse
 import com.format.app.navigation.navigator.Navigator
+import com.format.common.infrastructure.analytics.AnalyticsService
+import com.format.common.model.AnalyticsEvent
+import com.format.common.model.AnalyticsScreen
 import com.format.destinations.EditGroupScreenDestination
 import com.format.destinations.FormulaDetailsScreenDestination
 import com.format.domain.formulas.repository.FormulasRepository
@@ -21,12 +24,14 @@ class GroupDetailsViewModel(
     private val formulaStore: FormulaStore,
     private val formulasRepository: FormulasRepository,
     private val navigator: Navigator,
+    private val analyticsService: AnalyticsService,
 ) : ViewModel() {
     private val _uiState = MutableStateFlow(GroupDetailsViewState())
     val uiState: LiveData<GroupDetailsViewState>
         get() = _uiState.asLiveData()
 
     fun loadReactions(formulaGroup: FormulaGroup) = viewModelScope.launch {
+        analyticsService.trackScreen(AnalyticsScreen.GroupPreviewScreen)
         val publishedGroups = formulasRepository.groups().getOrElse { emptyList() }
         val reactions = formulasRepository.getReactions(formulaGroup).getOrElse { null }
         _uiState.update {
@@ -63,8 +68,10 @@ class GroupDetailsViewModel(
             val oldFavourites = formulaStore.getRemoteFavourite()
             if (oldFavourites.contains(targetFormulaId)) {
                 formulaStore.setRemoteFavourite(oldFavourites.filter { it != targetFormulaId })
+                analyticsService.trackEvent(AnalyticsEvent.FavouriteToggled(formulaGroup.id, false))
             } else {
                 formulaStore.setRemoteFavourite(oldFavourites + targetFormulaId)
+                analyticsService.trackEvent(AnalyticsEvent.FavouriteToggled(formulaGroup.id, true))
             }
         }
     }
@@ -83,6 +90,7 @@ class GroupDetailsViewModel(
             val updatedFormula = formulaGroups.firstOrNull { it == formulaGroup } ?: return@launch
             formulasRepository.deleteRemoteGroup(updatedFormula.id).mapLeft { return@launch }
             formulasRepository.deleteDownloadedFormulas(updatedFormula)
+            analyticsService.trackEvent(AnalyticsEvent.FormulaDeleted(formulaGroup.id))
             navigator.goBack()
         }
     }
