@@ -1,5 +1,6 @@
 package com.format.app.main
 
+import android.annotation.SuppressLint
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
@@ -18,19 +19,33 @@ import com.format.NavGraphs.root
 import com.format.app.navigation.controller.NavHostControllerProvider
 import com.format.app.theme.ColorPalette
 import com.format.app.theme.ForMatTheme
+import com.format.common.infrastructure.analytics.AnalyticsService
 import com.google.accompanist.navigation.material.ExperimentalMaterialNavigationApi
 import com.ramcosta.composedestinations.DestinationsNavHost
 import com.ramcosta.composedestinations.animations.defaults.RootNavGraphDefaultAnimations
 import com.ramcosta.composedestinations.animations.rememberAnimatedNavHostEngine
 import org.koin.android.ext.android.inject
+import android.provider.Settings
+import com.format.common.model.AnalyticsEvent
+import com.google.firebase.Firebase
+import com.google.firebase.analytics.FirebaseAnalytics
+import com.google.firebase.analytics.analytics
 
 class MainActivity : ComponentActivity() {
 
     private val navHostControllerProvider: NavHostControllerProvider by inject()
 
+    private val analyticsService: AnalyticsService by inject()
+
+    @SuppressLint("HardwareIds")
     @OptIn(ExperimentalMaterialNavigationApi::class, ExperimentalAnimationApi::class)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        val deviceId = Settings.Secure.getString(this.contentResolver, Settings.Secure.ANDROID_ID) ?: "unknown"
+        analyticsService.setUser(deviceId)
+        analyticsService.trackEvent(AnalyticsEvent.ApplicationStarted)
+
         enableEdgeToEdge()
         setContent {
             val navController = rememberNavController()

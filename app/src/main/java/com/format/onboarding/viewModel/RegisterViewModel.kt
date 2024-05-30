@@ -6,6 +6,8 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.asLiveData
 import androidx.lifecycle.viewModelScope
 import com.format.app.navigation.navigator.Navigator
+import com.format.common.infrastructure.analytics.AnalyticsService
+import com.format.common.model.AnalyticsScreen
 import com.format.common.util.hashString
 import com.format.destinations.HomeScreenDestination
 import com.format.destinations.LoginScreenDestination
@@ -19,10 +21,15 @@ import kotlinx.coroutines.launch
 class RegisterViewModel(
     private val userRepository: UserRepository,
     private val navigator: Navigator,
+    private val analyticsService: AnalyticsService,
 ) : ViewModel() {
     private val _uiState = MutableStateFlow(RegisterViewState())
     val uiState: LiveData<RegisterViewState>
         get() = _uiState.asLiveData()
+
+    init {
+        analyticsService.trackScreen(AnalyticsScreen.RegisterScreen)
+    }
 
     fun registerUser(username: String, password: String) = viewModelScope.launch {
         _uiState.update { it.copy(isProcessing = true) }

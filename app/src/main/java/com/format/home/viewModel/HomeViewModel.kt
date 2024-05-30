@@ -5,6 +5,8 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.asLiveData
 import androidx.lifecycle.viewModelScope
 import com.format.app.navigation.navigator.Navigator
+import com.format.common.infrastructure.analytics.AnalyticsService
+import com.format.common.model.AnalyticsScreen
 import com.format.data.networking.token.TokenStore
 import com.format.destinations.DownloadFormulaScreenDestination
 import com.format.destinations.EditGroupScreenDestination
@@ -23,12 +25,14 @@ class HomeViewModel(
     private val formulaStore: FormulaStore,
     private val tokenStore: TokenStore,
     private val formulasRepository: FormulasRepository,
+    private val analyticsService: AnalyticsService,
 ) : ViewModel() {
     private val _uiState = MutableStateFlow(HomeViewState())
     val uiState: LiveData<HomeViewState>
         get() = _uiState.asLiveData()
 
     fun loadData() = viewModelScope.launch {
+        analyticsService.trackScreen(AnalyticsScreen.HomeScreen)
         formulasRepository.updateUserData()
         val remoteFavourites = formulaStore.getRemoteFavourite()
         val localFormulas = formulaStore.getLocal()

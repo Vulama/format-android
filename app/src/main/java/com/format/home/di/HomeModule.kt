@@ -1,6 +1,7 @@
 package com.format.home.di
 
 import com.format.app.navigation.navigator.Navigator
+import com.format.common.infrastructure.analytics.AnalyticsService
 import com.format.data.networking.token.TokenStore
 import com.format.domain.formulas.repository.FormulasRepository
 import com.format.domain.formulas.store.FormulaStore
@@ -15,6 +16,7 @@ val homeModule = module {
             get<FormulaStore>(),
             get<TokenStore>(),
             get<FormulasRepository>(),
+            get<AnalyticsService>(),
         )
     }
 }

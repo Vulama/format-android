@@ -6,6 +6,8 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.asLiveData
 import androidx.lifecycle.viewModelScope
 import com.format.app.navigation.navigator.Navigator
+import com.format.common.infrastructure.analytics.AnalyticsService
+import com.format.common.model.AnalyticsScreen
 import com.format.common.util.hashString
 import com.format.data.api.PublicApi
 import com.format.destinations.HomeScreenDestination
@@ -23,10 +25,15 @@ class LoginViewModel(
     private val api: PublicApi,
     private val userRepository: UserRepository,
     private val navigator: Navigator,
+    private val analyticsService: AnalyticsService,
 ) : ViewModel() {
     private val _uiState = MutableStateFlow(LoginViewState())
     val uiState: LiveData<LoginViewState>
         get() = _uiState.asLiveData()
+
+    init {
+        analyticsService.trackScreen(AnalyticsScreen.LoginScreen)
+    }
 
     fun loginUser(username: String, password: String) = viewModelScope.launch {
         _uiState.update { it.copy(isProcessing = true) }

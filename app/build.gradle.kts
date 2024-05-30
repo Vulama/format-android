@@ -7,6 +7,7 @@ plugins {
     alias(libs.plugins.jetbrains.kotlin.android)
     id("com.google.devtools.ksp").version("1.9.10-1.0.13")
     id("org.jetbrains.kotlin.plugin.serialization").version("1.9.0")
+    id("com.google.gms.google-services")
 }
 
 android {
@@ -46,6 +47,7 @@ android {
 
         create("prod") {
             dimension = "environment"
+            applicationIdSuffix = ".prod"
             versionNameSuffix = "-production"
 
             getPropertiesFile("./config/prod.properties").forEach { (key, value) ->
@@ -116,6 +118,10 @@ dependencies {
 
     // Security Dependencies
     implementation(libs.androidx.security.crypto)
+
+    // Firebase Dependencies
+    implementation(platform(libs.firebase.bom))
+    implementation(libs.firebase.analytics)
 
     // Feature Dependencies
     implementation(libs.koin.androidx.compose)

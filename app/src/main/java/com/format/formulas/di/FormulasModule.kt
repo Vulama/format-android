@@ -1,6 +1,7 @@
 package com.format.formulas.di
 
 import com.format.app.navigation.navigator.Navigator
+import com.format.common.infrastructure.analytics.AnalyticsService
 import com.format.data.api.RestrictedApi
 import com.format.data.infrastructure.dateTime.DateTimeProvider
 import com.format.data.networking.token.TokenStore
@@ -17,6 +18,7 @@ val formulasModule = module {
         EditGroupViewModel(
             get<FormulaStore>(),
             get<Navigator>(),
+            get<AnalyticsService>(),
         )
     }
 
@@ -25,6 +27,7 @@ val formulasModule = module {
             get<FormulaStore>(),
             get<FormulasRepository>(),
             get<Navigator>(),
+            get<AnalyticsService>(),
         )
     }
 
@@ -33,6 +36,7 @@ val formulasModule = module {
             get<TokenStore>(),
             get<DateTimeProvider>(),
             get<FormulasRepository>(),
+            get<AnalyticsService>(),
         )
     }
 }

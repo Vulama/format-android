@@ -2,12 +2,14 @@ package com.format.data.di
 
 import android.content.SharedPreferences
 import com.format.common.di.getIODispatcher
+import com.format.common.infrastructure.analytics.AnalyticsService
 import com.format.data.infrastructure.logger.ForMatLogger
 import com.format.common.infrastructure.logger.Logger
 import com.format.data.api.RestrictedApi
 import com.format.data.api.PublicApi
 import com.format.data.formulas.repository.FormulasRepositoryImpl
 import com.format.data.formulas.store.FormulaStoreImpl
+import com.format.data.infrastructure.analytics.FirebaseAnalytics
 import com.format.data.infrastructure.dateTime.DateTimeProvider
 import com.format.data.infrastructure.preferences.ForMatPreferences
 import com.format.data.networking.di.getAuthRetrofit
@@ -60,5 +62,9 @@ val dataModule = module {
         FormulaStoreImpl(
             get<SharedPreferences>(),
         )
+    }
+
+    single<AnalyticsService> {
+        FirebaseAnalytics()
     }
 }

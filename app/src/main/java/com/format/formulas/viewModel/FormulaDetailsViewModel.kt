@@ -4,6 +4,8 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.asLiveData
 import androidx.lifecycle.viewModelScope
+import com.format.common.infrastructure.analytics.AnalyticsService
+import com.format.common.model.AnalyticsScreen
 import com.format.common.model.Epoch
 import com.format.data.infrastructure.dateTime.DateTimeProvider
 import com.format.data.networking.token.TokenStore
@@ -19,6 +21,7 @@ class FormulaDetailsViewModel(
     private val tokenStore: TokenStore,
     private val dateTimeProvider: DateTimeProvider,
     private val formulasRepository: FormulasRepository,
+    private val analyticsService: AnalyticsService,
 ) : ViewModel() {
     private val _uiState = MutableStateFlow(FormulaDetailsViewState(false, null))
     val uiState: LiveData<FormulaDetailsViewState>
@@ -30,6 +33,7 @@ class FormulaDetailsViewModel(
     }
 
     fun loadData(formulaId: Int) {
+        analyticsService.trackScreen(AnalyticsScreen.FormulaPreviewScreen)
         val userReactions = formulasRepository.userReactions()
         val formulaReaction = userReactions.firstOrNull { it.formulaId == formulaId }
         _uiState.update { it.copy(reaction = formulaReaction) }
