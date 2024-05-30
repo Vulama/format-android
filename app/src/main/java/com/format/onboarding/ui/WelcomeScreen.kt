@@ -37,7 +37,6 @@ fun WelcomeScreen() {
     WelcomeScreenStateless(
         onLoginClicked = { viewModel.onLoginClicked() },
         onRegisterClicked = { viewModel.onRegisterClicked() },
-        onContinueAsGuestClicked = { viewModel.onContinueAsGuestClicked() },
     )
 }
 
@@ -46,7 +45,6 @@ fun WelcomeScreen() {
 private fun WelcomeScreenStateless(
     onLoginClicked: () -> Unit,
     onRegisterClicked: () -> Unit,
-    onContinueAsGuestClicked: () -> Unit,
 ) {
 
     Column(
@@ -99,17 +97,6 @@ private fun WelcomeScreenStateless(
                     style = MaterialTheme.typography.titleMedium,
                 )
             }
-
-            VerticalSpacer(distance = 12.dp)
-
-            Text(
-                text = "Continue as Guest",
-                style = MaterialTheme.typography.labelMedium,
-                modifier = Modifier
-                    .clip(RoundedCornerShape(12.dp))
-                    .clickable { onContinueAsGuestClicked() }
-                    .padding(vertical = 4.dp, horizontal = 8.dp),
-            )
         }
     }
 }
@@ -117,5 +104,5 @@ private fun WelcomeScreenStateless(
 @Preview
 @Composable
 fun WelcomeScreenPreview() {
-    WelcomeScreenStateless({}, {}, {})
+    WelcomeScreenStateless({}, {})
 }

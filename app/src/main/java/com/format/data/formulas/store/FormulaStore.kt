@@ -8,20 +8,22 @@ import kotlinx.serialization.encodeToString
 import kotlinx.serialization.json.Json
 
 private const val LOCAL_FORMULAS_KEY = "local-formulas-key"
-private const val REMOTE_FORMULAS_KEY = "remote-formulas-key"
+private const val FAVOURITE_FORMULAS_KEY = "favourite-formulas-key"
+private const val USERNAME_KEY = "username-key"
 
 class FormulaStoreImpl(
     private val sharedPreferences: SharedPreferences,
 ) : FormulaStore {
-    override fun getLocal(): List<FormulaGroup> = try {
-        val formulaGroupsAsString = sharedPreferences.getString(LOCAL_FORMULAS_KEY, emptyGroupsSerialized) ?: emptyGroupsSerialized
-        Json.decodeFromString<List<FormulaGroup>>(formulaGroupsAsString)
-    } catch (ex: Exception) {
-        listOf()
+    override fun setKey(key: String) = sharedPreferences.edit {
+        putString(USERNAME_KEY, key)
     }
 
-    override fun getRemote(): List<FormulaGroup> = try {
-        val formulaGroupsAsString = sharedPreferences.getString(REMOTE_FORMULAS_KEY, emptyGroupsSerialized) ?: emptyGroupsSerialized
+    override fun resetKey() = sharedPreferences.edit {
+        remove(USERNAME_KEY)
+    }
+
+    override fun getLocal(): List<FormulaGroup> = try {
+        val formulaGroupsAsString = sharedPreferences.getString(key() + LOCAL_FORMULAS_KEY, emptyGroupsSerialized) ?: emptyGroupsSerialized
         Json.decodeFromString<List<FormulaGroup>>(formulaGroupsAsString)
     } catch (ex: Exception) {
         listOf()
@@ -29,13 +31,24 @@ class FormulaStoreImpl(
 
     override fun setLocal(formulaGroups: List<FormulaGroup>) = sharedPreferences.edit {
         val encodedGroups = Json.encodeToString(formulaGroups)
-        putString(LOCAL_FORMULAS_KEY, encodedGroups)
+        putString(key() + LOCAL_FORMULAS_KEY, encodedGroups)
     }
 
-    override fun setRemote(formulaGroups: List<FormulaGroup>) = sharedPreferences.edit {
+    override fun getRemoteFavourite(): List<Int> = try {
+        val formulaGroupsAsString = sharedPreferences.getString(key() + FAVOURITE_FORMULAS_KEY, emptyListSerialized) ?: emptyListSerialized
+        Json.decodeFromString<List<Int>>(formulaGroupsAsString)
+    } catch (ex: Exception) {
+        listOf()
+    }
+
+    override fun setRemoteFavourite(formulaGroups: List<Int>) = sharedPreferences.edit {
         val encodedGroups = Json.encodeToString(formulaGroups)
-        putString(REMOTE_FORMULAS_KEY, encodedGroups)
+        putString(key() + FAVOURITE_FORMULAS_KEY, encodedGroups)
     }
 
     private val emptyGroupsSerialized = Json.encodeToString(listOf<FormulaGroup>())
+
+    private val emptyListSerialized = Json.encodeToString(listOf<Int>())
+
+    private fun key() = sharedPreferences.getString(USERNAME_KEY, "")
 }

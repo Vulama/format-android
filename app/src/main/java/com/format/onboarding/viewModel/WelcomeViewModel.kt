@@ -27,8 +27,4 @@ class WelcomeViewModel(
     fun onRegisterClicked() {
         navigator.navigate(RegisterScreenDestination.route)
     }
-
-    fun onContinueAsGuestClicked() {
-        navigator.navigate(HomeScreenDestination.route, true)
-    }
 }

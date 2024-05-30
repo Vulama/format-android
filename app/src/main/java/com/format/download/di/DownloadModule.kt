@@ -11,7 +11,6 @@ val downloadModule = module {
     viewModel<DownloadFormulaViewModel> {
         DownloadFormulaViewModel(
             get<FormulasRepository>(),
-            get<FormulaStore>(),
             get<Navigator>(),
         )
     }

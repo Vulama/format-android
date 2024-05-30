@@ -21,7 +21,38 @@ interface RestrictedApi {
     suspend fun reactions(
         @Body request: ReactionsRequestDto
     ): ReactionsResponseDto
+
+    @POST("/api/user/groupDownload")
+    suspend fun groupDownloaded(
+        @Body remoteFormulaRequest: RemoteFormulaRequest
+    ): DownloadedGroupDto
+
+    @POST("/api/user/groupDelete")
+    suspend fun groupDeleted(
+        @Body remoteFormulaRequest: RemoteFormulaRequest
+    ): DownloadedGroupDto
+
+    @GET("/api/loadUserData")
+    suspend fun loadUserData(): LoadUserDataDto
 }
+
+@Serializable
+data class LoadUserDataDto(
+    @SerialName("downloadedFormulaGroups") val downloadedFormulaGroups: List<DownloadedGroupDto> = emptyList(),
+    @SerialName("userReactions") val userReactions: List<ReactionDto> = emptyList(),
+)
+
+@Serializable
+data class DownloadedGroupDto(
+    @SerialName("userId") val id: Int,
+    @SerialName("formulaGroupId") val ownerId: Int,
+    @SerialName("formulaGroup") val formulaGroup: GroupDto? = null,
+)
+
+@Serializable
+data class RemoteFormulaRequest(
+    @SerialName("formulaGroupId") val formulaGroupId: Int,
+)
 
 @Serializable
 data class ReactionsRequestDto(
@@ -41,7 +72,7 @@ data class FormulaReactDto(
 
 @Serializable
 data class FormulaReactResponseDto(
-    @SerialName("message") val message: Int,
+    @SerialName("message") val message: String,
     @SerialName("reaction") val reaction: ReactionDto,
 )
 

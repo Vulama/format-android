@@ -1,4 +1,4 @@
-package com.format.data.infrastructure.util
+package com.format.data.networking.util
 
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.json.Json
@@ -10,7 +10,7 @@ data class ErrorResponse(
     val error: String? = null
 )
 
-fun <T> Response<T>.parseError() : Throwable {
+fun <T> Response<T>.parseError(): Throwable {
     val errorBody = this.errorBody()
     return if (errorBody != null) {
         try {
