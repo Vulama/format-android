@@ -16,9 +16,11 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.format.R
 import com.format.app.theme.ColorPalette
 import com.format.common.ui.AnalyticsTable
 import com.format.common.ui.ForMatButtonColors
@@ -107,7 +109,7 @@ private fun FormulaDetailsScreenStateless(
         if (!showStatistic && formulaEntry.id != -1) {
 
             Text(
-                text = "Do you understand this formula?",
+                text = stringResource(id = R.string.formula_screen_reaction_title),
                 modifier = Modifier.fillMaxWidth(),
                 textAlign = TextAlign.Center,
             )
@@ -125,7 +127,7 @@ private fun FormulaDetailsScreenStateless(
                     modifier = Modifier.weight(1f),
                     enabled = areReactionsEnabled && reaction?.type != true,
                 ) {
-                    Text(text = "I do")
+                    Text(text = stringResource(id = R.string.formula_screen_reaction_positive_label))
                 }
 
                 HorizontalSpacer(distance = 8.dp)
@@ -136,7 +138,7 @@ private fun FormulaDetailsScreenStateless(
                     colors = ForMatButtonColors.Alert(),
                     enabled = areReactionsEnabled && reaction?.type != false,
                 ) {
-                    Text(text = "I don't")
+                    Text(text = stringResource(id = R.string.formula_screen_reaction_negative_label))
                 }
             }
         } else if (showStatistic) {

@@ -21,9 +21,11 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.format.R
 import com.format.app.theme.ColorPalette
 import com.format.common.ui.FormulaDivider
 import com.format.common.ui.NormalButton
@@ -63,7 +65,7 @@ fun DownloadFormulaScreenStateless(
             .fillMaxSize()
     ) {
         Text(
-            text = "Download Formula",
+            text = stringResource(id = R.string.download_screen_button_label),
             style = MaterialTheme.typography.headlineLarge.copy(
                 color = ColorPalette.Primary,
                 fontWeight = FontWeight.Bold,
@@ -103,14 +105,14 @@ fun DownloadFormulaScreenStateless(
             enabled = selectedIndex != -1,
             modifier = Modifier.align(Alignment.BottomCenter)
         ) {
-            Text(text = "Download Selected Formula")
+            Text(text = stringResource(id = R.string.download_screen_button_label))
         }
     }
 }
 
 @Composable
 @Preview
-fun PreviewDownloadFormulaScreen(){
+fun PreviewDownloadFormulaScreen() {
     DownloadFormulaScreenStateless(
         formulas = listOf(
             FormulaGroup("formula group1", emptyList()),
