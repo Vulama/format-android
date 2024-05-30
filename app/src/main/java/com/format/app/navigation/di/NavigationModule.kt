@@ -2,7 +2,6 @@ package com.format.app.navigation.di
 
 import com.format.app.navigation.controller.NavHostControllerProvider
 import com.format.app.navigation.navigator.Navigator
-import com.format.common.di.getBackgroundDispatcher
 import com.format.common.infrastructure.logger.Logger
 import org.koin.dsl.module
 

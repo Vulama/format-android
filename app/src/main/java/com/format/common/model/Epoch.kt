@@ -16,6 +16,9 @@ value class Epoch(val value: Long) {
     val formattedAsDate: String
         get() = this.format("dd MMM yyyy")
 
+    val formattedAsApiDate: String
+        get() = this.format("yyyy-MM-dd'T'HH:mm:ssZ")
+
     fun format(format: String): String = format(DateTimeFormatter.ofPattern(format))
 
     private fun format(formatter: DateTimeFormatter) = if (this != None) {

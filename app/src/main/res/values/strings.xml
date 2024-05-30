@@ -23,7 +23,7 @@
     <string name="main_screen_add_group_label">Add Formulas</string>
 
     <string name="download_screen_title">Download Formula</string>
-    <string name="download_screen_button_label">Download Selected Group</string>
+    <string name="download_screen_button_label">Download Group</string>
 
     <string name="edit_group_screen_title">Create a new group</string>
     <string name="edit_group_screen_group_title">Group Name</string>

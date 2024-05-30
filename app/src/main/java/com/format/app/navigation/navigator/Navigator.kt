@@ -1,11 +1,6 @@
 package com.format.app.navigation.navigator
 
 import com.format.app.navigation.controller.NavHostControllerProvider
-import kotlinx.coroutines.CoroutineDispatcher
-import kotlinx.coroutines.DelicateCoroutinesApi
-import kotlinx.coroutines.GlobalScope
-import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
 
 interface Navigator {
 

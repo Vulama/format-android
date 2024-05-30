@@ -2,7 +2,7 @@ package com.format.formulas.di
 
 import com.format.app.navigation.navigator.Navigator
 import com.format.common.infrastructure.analytics.AnalyticsService
-import com.format.data.api.RestrictedApi
+import com.format.common.infrastructure.logger.Logger
 import com.format.data.infrastructure.dateTime.DateTimeProvider
 import com.format.data.networking.token.TokenStore
 import com.format.domain.formulas.repository.FormulasRepository
@@ -19,6 +19,7 @@ val formulasModule = module {
             get<FormulaStore>(),
             get<Navigator>(),
             get<AnalyticsService>(),
+            get<Logger>(),
         )
     }
 
@@ -28,6 +29,7 @@ val formulasModule = module {
             get<FormulasRepository>(),
             get<Navigator>(),
             get<AnalyticsService>(),
+            get<Logger>(),
         )
     }
 
@@ -37,6 +39,7 @@ val formulasModule = module {
             get<DateTimeProvider>(),
             get<FormulasRepository>(),
             get<AnalyticsService>(),
+            get<Logger>(),
         )
     }
 }

@@ -2,6 +2,7 @@ package com.format.download.di
 
 import com.format.app.navigation.navigator.Navigator
 import com.format.common.infrastructure.analytics.AnalyticsService
+import com.format.common.infrastructure.logger.Logger
 import com.format.domain.formulas.repository.FormulasRepository
 import com.format.download.viewModel.DownloadFormulaViewModel
 import org.koin.androidx.viewmodel.dsl.viewModel
@@ -13,6 +14,7 @@ val downloadModule = module {
             get<FormulasRepository>(),
             get<Navigator>(),
             get<AnalyticsService>(),
+            get<Logger>(),
         )
     }
 }

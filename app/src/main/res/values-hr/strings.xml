@@ -23,7 +23,7 @@
     <string name="main_screen_add_group_label">Dodaj formule</string>
 
     <string name="download_screen_title">Preuzmi formulu</string>
-    <string name="download_screen_button_label">Preuzmi odabranu grupu</string>
+    <string name="download_screen_button_label">Preuzmi grupu</string>
 
     <string name="edit_group_screen_title">Kreiraj novu grupu</string>
     <string name="edit_group_screen_group_title">Naziv grupe</string>
