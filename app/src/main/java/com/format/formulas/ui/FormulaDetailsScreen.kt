@@ -12,6 +12,7 @@ import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.ContentScale
@@ -26,10 +27,10 @@ import com.format.common.ui.LatexView
 import com.format.common.ui.NormalButton
 import com.format.common.ui.VerticalSpacer
 import com.format.domain.model.FormulaEntry
+import com.format.domain.model.Reaction
 import com.format.formulas.viewModel.FormulaDetailsViewModel
 import com.ramcosta.composedestinations.annotation.Destination
 import org.koin.androidx.compose.getViewModel
-
 
 @Destination
 @Composable
@@ -50,7 +51,12 @@ fun FormulaDetailsScreen(
         failureCount = failureCount,
         showStatistic = showStatistic,
         areReactionsEnabled = viewState?.areReactionsEnabled ?: false,
+        reaction = viewState?.reaction,
     )
+
+    LaunchedEffect(Unit) {
+        viewModel.loadData(formulaEntry.id)
+    }
 }
 
 @Composable
@@ -62,6 +68,7 @@ private fun FormulaDetailsScreenStateless(
     failureCount: Int,
     showStatistic: Boolean,
     areReactionsEnabled: Boolean,
+    reaction: Reaction?,
 ) {
     Column(
         modifier = Modifier
@@ -78,7 +85,7 @@ private fun FormulaDetailsScreenStateless(
                 .padding(bottom = 8.dp),
             textAlign = TextAlign.Center,
 
-        )
+            )
 
         VerticalSpacer(distance = 36.dp)
 
@@ -116,7 +123,7 @@ private fun FormulaDetailsScreenStateless(
                 NormalButton(
                     onClick = onSuccessClicked,
                     modifier = Modifier.weight(1f),
-                    enabled = areReactionsEnabled,
+                    enabled = areReactionsEnabled && reaction?.type != true,
                 ) {
                     Text(text = "I do")
                 }
@@ -127,7 +134,7 @@ private fun FormulaDetailsScreenStateless(
                     onClick = onFailureClicked,
                     modifier = Modifier.weight(1f),
                     colors = ForMatButtonColors.Alert(),
-                    enabled = areReactionsEnabled,
+                    enabled = areReactionsEnabled && reaction?.type != false,
                 ) {
                     Text(text = "I don't")
                 }
@@ -143,14 +150,19 @@ private fun FormulaDetailsScreenStateless(
 
 @Composable
 @Preview
-private fun PreviewFormulaDetailsScreen(){
+private fun PreviewFormulaDetailsScreen() {
     FormulaDetailsScreenStateless(
-        FormulaEntry("Test title", "", "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum."),
+        FormulaEntry(
+            "Test title",
+            "",
+            "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum."
+        ),
         {},
         {},
         10,
         5,
         true,
         true,
+        null,
     )
 }

@@ -7,7 +7,6 @@ import androidx.lifecycle.viewModelScope
 import arrow.core.getOrElse
 import com.format.app.navigation.navigator.Navigator
 import com.format.domain.formulas.repository.FormulasRepository
-import com.format.domain.formulas.store.FormulaStore
 import com.format.domain.model.FormulaGroup
 import com.format.download.viewState.DownloadFormulaViewState
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -16,7 +15,6 @@ import kotlinx.coroutines.launch
 
 class DownloadFormulaViewModel(
     private val formulasRepository: FormulasRepository,
-    private val formulaStore: FormulaStore,
     private val navigator: Navigator,
 ) : ViewModel() {
     private val _uiState = MutableStateFlow(DownloadFormulaViewState(emptyList()))
@@ -28,9 +26,9 @@ class DownloadFormulaViewModel(
         _uiState.update { it.copy(remoteFormulaGroups) }
     }
 
-    fun onDownloadFormulaClicked(remoteFormulaGroup: FormulaGroup) {
-        val remoteFormulas = formulaStore.getRemote()
-        formulaStore.setRemote(remoteFormulas + remoteFormulaGroup)
+    fun onDownloadFormulaClicked(remoteFormulaGroup: FormulaGroup) = viewModelScope.launch {
+        formulasRepository.downloadFormulaGroup(remoteFormulaGroup.id).mapLeft { return@launch }
+        formulasRepository.updateDownloadedFormulas(remoteFormulaGroup)
         navigator.goBack()
     }
 }

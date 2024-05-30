@@ -4,11 +4,15 @@ import com.format.domain.model.FormulaGroup
 
 interface FormulaStore {
 
-    fun getLocal(): List<FormulaGroup>
+    fun setKey(key: String)
 
-    fun getRemote(): List<FormulaGroup>
+    fun resetKey()
+
+    fun getLocal(): List<FormulaGroup>
 
     fun setLocal(formulaGroups: List<FormulaGroup>)
 
-    fun setRemote(formulaGroups: List<FormulaGroup>)
+    fun getRemoteFavourite(): List<Int>
+
+    fun setRemoteFavourite(formulaGroups: List<Int>)
 }

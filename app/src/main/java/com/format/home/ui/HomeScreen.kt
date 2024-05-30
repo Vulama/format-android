@@ -14,7 +14,9 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.itemsIndexed
+import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material.icons.filled.ExitToApp
@@ -80,6 +82,7 @@ fun HomeScreenStateless(
         modifier = Modifier
             .padding(24.dp)
             .fillMaxSize()
+            .verticalScroll(rememberScrollState())
     ) {
         Row(
             modifier = Modifier
@@ -106,23 +109,27 @@ fun HomeScreenStateless(
             )
         }
 
-        if (favouriteFormulas.isNotEmpty()){
+        if (favouriteFormulas.isNotEmpty()) {
             SectionWithTitle(title = "Favourite Formulas") {
                 FormulaList(favouriteFormulas, onFormulaGroupClicked)
             }
 
-            FormulaDivider()
+            if (localFormulas.isNotEmpty() || remoteFormulas.isNotEmpty()) {
+                FormulaDivider()
+            }
         }
 
         if (localFormulas.isNotEmpty()) {
             SectionWithTitle(title = "Local Formulas") {
                 FormulaList(localFormulas, onFormulaGroupClicked)
             }
+
+            if (remoteFormulas.isNotEmpty()) {
+                FormulaDivider()
+            }
         }
 
         if (remoteFormulas.isNotEmpty()) {
-            FormulaDivider()
-
             SectionWithTitle(title = "Remote Formulas") {
                 FormulaList(remoteFormulas, onFormulaGroupClicked)
             }
@@ -173,11 +180,10 @@ fun FormulaList(
     formulas: List<FormulaGroup>,
     onFormulaGroupClicked: (FormulaGroup) -> Unit
 ) {
-    LazyColumn(
-        modifier = Modifier
-            .fillMaxWidth()
+    Column(
+        modifier = Modifier.fillMaxWidth()
     ) {
-        itemsIndexed(formulas) { index, formula ->
+        formulas.forEachIndexed { index, formula ->
             Text(
                 modifier = Modifier
                     .fillMaxWidth()

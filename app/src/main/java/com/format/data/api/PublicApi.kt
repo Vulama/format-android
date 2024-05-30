@@ -28,7 +28,6 @@ interface PublicApi {
     suspend fun groups(): List<GroupDto>
 }
 
-
 @Serializable
 data class RefreshTokenRequest(
     @SerialName("refreshToken") val refreshToken: String,
@@ -46,6 +45,9 @@ data class LoginResponseDto(
     @SerialName("accessTokenExpiresAt") val accessTokenExpiresAt: String,
     @SerialName("refreshToken") val refreshToken: String,
     @SerialName("refreshTokenExpiresAt") val refreshTokenExpiresAt: String,
+    @SerialName("user") val user: UserDto,
+    @SerialName("downloadedFormulaGroups") val downloadedFormulaGroups: List<DownloadedGroupDto> = emptyList(),
+    @SerialName("userReactions") val userReactions: List<ReactionDto> = emptyList(),
 )
 
 @Serializable
@@ -66,7 +68,6 @@ data class UserDto(
     @SerialName("username") val username: String,
     @SerialName("passwordHash") val passwordHash: String,
 )
-
 
 @Serializable
 data class RefreshTokenResponseDto(

@@ -51,6 +51,8 @@ val dataModule = module {
             get<PublicApi>(),
             getIODispatcher(),
             get<TokenStore>(),
+            get<FormulasRepository>(),
+            get<FormulaStore>(),
         )
     }
 
