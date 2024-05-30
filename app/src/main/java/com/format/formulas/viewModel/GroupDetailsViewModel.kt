@@ -7,12 +7,14 @@ import androidx.lifecycle.viewModelScope
 import arrow.core.getOrElse
 import com.format.app.navigation.navigator.Navigator
 import com.format.common.infrastructure.analytics.AnalyticsService
+import com.format.common.infrastructure.logger.Logger
 import com.format.common.model.AnalyticsEvent
 import com.format.common.model.AnalyticsScreen
 import com.format.destinations.EditGroupScreenDestination
 import com.format.destinations.FormulaDetailsScreenDestination
 import com.format.domain.formulas.repository.FormulasRepository
 import com.format.domain.formulas.store.FormulaStore
+import com.format.domain.model.ApplicationFlows
 import com.format.domain.model.FormulaEntry
 import com.format.domain.model.FormulaGroup
 import com.format.formulas.viewState.GroupDetailsViewState
@@ -25,15 +27,18 @@ class GroupDetailsViewModel(
     private val formulasRepository: FormulasRepository,
     private val navigator: Navigator,
     private val analyticsService: AnalyticsService,
+    private val logger: Logger,
 ) : ViewModel() {
     private val _uiState = MutableStateFlow(GroupDetailsViewState())
     val uiState: LiveData<GroupDetailsViewState>
         get() = _uiState.asLiveData()
 
     fun loadReactions(formulaGroup: FormulaGroup) = viewModelScope.launch {
+        logger.i(ApplicationFlows.Formula, "Group data loading started")
         analyticsService.trackScreen(AnalyticsScreen.GroupPreviewScreen)
         val publishedGroups = formulasRepository.groups().getOrElse { emptyList() }
         val reactions = formulasRepository.getReactions(formulaGroup).getOrElse { null }
+        logger.i(ApplicationFlows.Formula, "Group data loading finished")
         _uiState.update {
             it.copy(
                 groupReactions = reactions,
@@ -43,9 +48,11 @@ class GroupDetailsViewModel(
     }
 
     fun publishFormulaGroup(formulaGroup: FormulaGroup) = viewModelScope.launch {
+        logger.i(ApplicationFlows.Formula, "Group publishing started")
         _uiState.update { it.copy(isPublishInProgress = true) }
         formulasRepository.publishGroup(formulaGroup).fold(
             {
+                logger.w(ApplicationFlows.Formula, "Group publishing failed with message: ${it.message}")
                 _uiState.update { it.copy(isGroupPublished = false, isPublishInProgress = false) }
             },
             {
@@ -53,6 +60,7 @@ class GroupDetailsViewModel(
                 val filteredGroups = localGroups.filter { it != formulaGroup }
                 val updatedGroups = filteredGroups + it
                 formulaStore.setLocal(updatedGroups)
+                logger.i(ApplicationFlows.Formula, "Group publishing finished")
                 _uiState.update { it.copy(isGroupPublished = true, isPublishInProgress = false) }
             }
         )
@@ -62,6 +70,7 @@ class GroupDetailsViewModel(
         return if (formulaGroup.id == -1) {
             val formulas = formulaStore.getLocal()
             formulaStore.setLocal(formulas.map { if (it == formulaGroup) it.copy(isFavourite = !it.isFavourite) else it })
+            logger.i(ApplicationFlows.Formula, "Local group favorite toggled")
         } else {
             val formulaGroups = formulasRepository.downloadedFormulas()
             val targetFormulaId = formulaGroups.firstOrNull { it.id == formulaGroup.id }?.id ?: return
@@ -73,6 +82,7 @@ class GroupDetailsViewModel(
                 formulaStore.setRemoteFavourite(oldFavourites + targetFormulaId)
                 analyticsService.trackEvent(AnalyticsEvent.FavouriteToggled(formulaGroup.id, true))
             }
+            logger.i(ApplicationFlows.Formula, "Remote group favorite toggled")
         }
     }
 
@@ -81,9 +91,11 @@ class GroupDetailsViewModel(
     }
 
     fun onDeleteGroupClicked(formulaGroup: FormulaGroup) = viewModelScope.launch {
+        logger.i(ApplicationFlows.Formula, "Group removing started")
         if (formulaGroup.id == -1) {
             val formulas = formulaStore.getLocal()
             formulaStore.setLocal(formulas.mapNotNull { if (it == formulaGroup) null else it })
+            logger.i(ApplicationFlows.Formula, "Local group removed")
             navigator.goBack()
         } else {
             val formulaGroups = formulasRepository.downloadedFormulas()
@@ -91,6 +103,7 @@ class GroupDetailsViewModel(
             formulasRepository.deleteRemoteGroup(updatedFormula.id).mapLeft { return@launch }
             formulasRepository.deleteDownloadedFormulas(updatedFormula)
             analyticsService.trackEvent(AnalyticsEvent.FormulaDeleted(formulaGroup.id))
+            logger.i(ApplicationFlows.Formula, "Remote group removed")
             navigator.goBack()
         }
     }

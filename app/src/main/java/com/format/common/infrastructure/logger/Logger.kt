@@ -1,5 +1,6 @@
 package com.format.common.infrastructure.logger
 
+
 interface Logger {
     fun v(tag: String, message: String?, vararg args: Any?)
 

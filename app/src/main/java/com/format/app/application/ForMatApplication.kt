@@ -1,14 +1,13 @@
 package com.format.app.application
 
 import android.app.Application
+import com.format.BuildConfig
 import com.format.app.di.initDI
 import com.google.firebase.Firebase
-import com.google.firebase.analytics.FirebaseAnalytics
-import com.google.firebase.analytics.analytics
 import com.google.firebase.initialize
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.SupervisorJob
-import org.koin.android.ext.android.getKoin
+import timber.log.Timber
 import kotlin.coroutines.CoroutineContext
 
 class ForMatApplication : Application(), CoroutineScope {
@@ -23,5 +22,10 @@ class ForMatApplication : Application(), CoroutineScope {
 
         // Firebase initialisation
         Firebase.initialize(this)
+
+        // Timber initialisation
+        if (BuildConfig.DEBUG) {
+            Timber.plant(Timber.DebugTree())
+        }
     }
 }

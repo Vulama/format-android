@@ -2,6 +2,7 @@ package com.format.onboarding.di
 
 import com.format.app.navigation.navigator.Navigator
 import com.format.common.infrastructure.analytics.AnalyticsService
+import com.format.common.infrastructure.logger.Logger
 import com.format.data.infrastructure.dateTime.DateTimeProvider
 import com.format.data.networking.token.TokenStore
 import com.format.domain.user.repository.UserRepository
@@ -18,15 +19,16 @@ val onboardingModule = module {
             get<TokenStore>(),
             get<DateTimeProvider>(),
             get<AnalyticsService>(),
+            get<Logger>(),
         )
     }
 
     viewModel<LoginViewModel> {
         LoginViewModel(
-            get(),
             get<UserRepository>(),
             get<Navigator>(),
             get<AnalyticsService>(),
+            get<Logger>(),
         )
     }
 
@@ -35,6 +37,7 @@ val onboardingModule = module {
             get<UserRepository>(),
             get<Navigator>(),
             get<AnalyticsService>(),
+            get<Logger>(),
         )
     }
 }

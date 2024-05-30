@@ -73,7 +73,7 @@ fun DownloadFormulaScreenStateless(
         )
 
         LazyColumn(
-            modifier = Modifier.padding(top = 70.dp, bottom = 50.dp)
+            modifier = Modifier.padding(top = 90.dp, bottom = 50.dp)
         ) {
             itemsIndexed(formulas) { index, item ->
                 Text(

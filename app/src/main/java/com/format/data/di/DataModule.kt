@@ -29,7 +29,9 @@ val dataModule = module {
     single<RestrictedApi> { getAuthRetrofit().create(RestrictedApi::class.java) }
 
     single<Logger> {
-        ForMatLogger()
+        ForMatLogger(
+            get<DateTimeProvider>(),
+        )
     }
 
     single<SharedPreferences> {

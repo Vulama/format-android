@@ -123,6 +123,9 @@ dependencies {
     implementation(platform(libs.firebase.bom))
     implementation(libs.firebase.analytics)
 
+    // Timber Dependencies
+    implementation(libs.timber)
+
     // Feature Dependencies
     implementation(libs.koin.androidx.compose)
     implementation(libs.animations.core)
