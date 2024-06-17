@@ -67,9 +67,11 @@ class GroupDetailsViewModel(
     }
 
     fun onFavouriteToggled(formulaGroup: FormulaGroup) {
-        return if (formulaGroup.id == -1) {
+        return if (formulaGroup.isLocal) {
             val formulas = formulaStore.getLocal()
-            formulaStore.setLocal(formulas.map { if (it == formulaGroup) it.copy(isFavourite = !it.isFavourite) else it })
+            formulaStore.setLocal(
+                formulas.map { if (it == formulaGroup) it.copy(isFavourite = !it.isFavourite) else it }
+            )
             logger.i(ApplicationFlows.Formula, "Local group favorite toggled")
         } else {
             val formulaGroups = formulasRepository.downloadedFormulas()
@@ -92,14 +94,14 @@ class GroupDetailsViewModel(
 
     fun onDeleteGroupClicked(formulaGroup: FormulaGroup) = viewModelScope.launch {
         logger.i(ApplicationFlows.Formula, "Group removing started")
-        if (formulaGroup.id == -1) {
+        if (formulaGroup.isLocal) {
             val formulas = formulaStore.getLocal()
             formulaStore.setLocal(formulas.mapNotNull { if (it == formulaGroup) null else it })
             logger.i(ApplicationFlows.Formula, "Local group removed")
             navigator.goBack()
         } else {
             val formulaGroups = formulasRepository.downloadedFormulas()
-            val updatedFormula = formulaGroups.firstOrNull { it == formulaGroup } ?: return@launch
+            val updatedFormula = formulaGroups.firstOrNull { it.id == formulaGroup.id } ?: return@launch
             formulasRepository.deleteRemoteGroup(updatedFormula.id).mapLeft { return@launch }
             formulasRepository.deleteDownloadedFormulas(updatedFormula)
             analyticsService.trackEvent(AnalyticsEvent.FormulaDeleted(formulaGroup.id))

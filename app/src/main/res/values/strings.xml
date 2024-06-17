@@ -25,7 +25,8 @@
     <string name="download_screen_title">Download Formula</string>
     <string name="download_screen_button_label">Download Group</string>
 
-    <string name="edit_group_screen_title">Create a new group</string>
+    <string name="edit_group_screen_title">Edit group</string>
+    <string name="edit_group_screen_title_new">Create a new group</string>
     <string name="edit_group_screen_group_title">Group Name</string>
     <string name="edit_group_screen_add_formula_button_label">Add Empty Formula</string>
     <string name="edit_group_screen_create_group_button_label">Create Local Formula Group</string>
@@ -40,4 +41,7 @@
     <string name="group_screen_publish_button_label">Publish Group</string>
     <string name="group_screen_edit_button_label">Edit Group</string>
     <string name="group_screen_remove_button_label">Remove Group</string>
+
+    <string name="analytics_table_success_label">Understand</string>
+    <string name="analytics_table_failure_label">Don\'t understand</string>
 </resources>

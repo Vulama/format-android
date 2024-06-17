@@ -8,6 +8,7 @@ data class FormulaGroup(
     val formulas: List<FormulaEntry>,
     val id: Int = -1,
     val isFavourite: Boolean = false,
+    val isLocal: Boolean = false,
 )
 
 @Serializable

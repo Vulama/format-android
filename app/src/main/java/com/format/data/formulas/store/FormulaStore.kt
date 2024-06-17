@@ -30,7 +30,7 @@ class FormulaStoreImpl(
     }
 
     override fun setLocal(formulaGroups: List<FormulaGroup>) = sharedPreferences.edit {
-        val encodedGroups = Json.encodeToString(formulaGroups)
+        val encodedGroups = Json.encodeToString(formulaGroups.map { it.copy(isLocal = true) })
         putString(key() + LOCAL_FORMULAS_KEY, encodedGroups)
     }
 

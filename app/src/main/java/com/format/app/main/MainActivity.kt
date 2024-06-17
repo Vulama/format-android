@@ -27,9 +27,6 @@ import com.ramcosta.composedestinations.animations.rememberAnimatedNavHostEngine
 import org.koin.android.ext.android.inject
 import android.provider.Settings
 import com.format.common.model.AnalyticsEvent
-import com.google.firebase.Firebase
-import com.google.firebase.analytics.FirebaseAnalytics
-import com.google.firebase.analytics.analytics
 
 class MainActivity : ComponentActivity() {
 

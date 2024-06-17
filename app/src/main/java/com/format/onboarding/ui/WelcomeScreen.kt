@@ -1,8 +1,10 @@
 package com.format.onboarding.ui
 
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
@@ -58,14 +60,23 @@ private fun WelcomeScreenStateless(
         Column(
             horizontalAlignment = Alignment.CenterHorizontally,
         ) {
-            Icon(
-                painter = painterResource(id = R.drawable.ic_launcher_foreground),
-                modifier = Modifier
-                    .size(120.dp)
-                    .background(ColorPalette.Primary, RoundedCornerShape(36.dp)),
-                tint = ColorPalette.OnPrimary,
-                contentDescription = null,
-            )
+            Box(modifier = Modifier.size(120.dp)) {
+                Image(
+                    painter = painterResource(id = R.drawable.ic_launcher_background),
+                    modifier = Modifier
+                        .size(120.dp)
+                        .clip(RoundedCornerShape(36.dp)),
+                    contentDescription = null,
+                )
+
+                Icon(
+                    painter = painterResource(id = R.drawable.ic_launcher_foreground),
+                    modifier = Modifier.size(120.dp),
+                    tint = ColorPalette.OnPrimary,
+                    contentDescription = null,
+                )
+            }
+
 
             VerticalSpacer(distance = 16.dp)
 

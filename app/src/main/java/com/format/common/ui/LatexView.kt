@@ -17,13 +17,11 @@ fun LatexView(
     latexText: String,
     modifier: Modifier = Modifier,
     contentScale: ContentScale = ContentScale.Fit,
-){
-    val withoutWhitespaces = latexText.replace(" ", "")
-
+) {
     AsyncImage(
         modifier = modifier,
         model = ImageRequest.Builder(LocalContext.current)
-            .data("https://math.vercel.app/?from=$withoutWhitespaces")
+            .data("https://math.vercel.app/?from=$latexText")
             .decoderFactory(SvgDecoder.Factory())
             .build(),
         contentDescription = null,
