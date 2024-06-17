@@ -24,6 +24,7 @@ import com.format.R
 import com.format.app.theme.ColorPalette
 import com.format.common.ui.AnalyticsTable
 import com.format.common.ui.ForMatButtonColors
+import com.format.common.ui.FormulaDivider
 import com.format.common.ui.HorizontalSpacer
 import com.format.common.ui.LatexView
 import com.format.common.ui.NormalButton
@@ -86,8 +87,7 @@ private fun FormulaDetailsScreenStateless(
                 .fillMaxWidth()
                 .padding(bottom = 8.dp),
             textAlign = TextAlign.Center,
-
-            )
+        )
 
         VerticalSpacer(distance = 36.dp)
 
@@ -107,6 +107,8 @@ private fun FormulaDetailsScreenStateless(
         VerticalSpacer(distance = 24.dp)
 
         if (!showStatistic && formulaEntry.id != -1) {
+
+            FormulaDivider()
 
             Text(
                 text = stringResource(id = R.string.formula_screen_reaction_title),

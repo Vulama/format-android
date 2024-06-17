@@ -46,10 +46,13 @@ class FormulasRepositoryImpl(
             val response = restrictedApi.publishGroup(
                 PublishGroupDto(
                     name = formulaGroup.name,
-                    formulas = formulaGroup.formulas.map { FormulaDto(it.title, it.formula, it.description, it.id) }
+                    formulas = formulaGroup.formulas.map { FormulaDto(it.title, it.formula, it.description) }
                 )
             )
-            formulaGroup.copy(id = response.group.id)
+            formulaGroup.copy(
+                id = response.group.id,
+                formulas = response.group.formulas.map { FormulaEntry(it.title, it.mathFormula, it.description, it.id ?: -1) }
+            )
         }.mapLeft {
             AppError.ApiError(it.message ?: "Error")
         }

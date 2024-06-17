@@ -21,6 +21,7 @@ import com.format.domain.model.FormulaGroup
 import com.format.formulas.viewModel.EditGroupViewModel
 import com.ramcosta.composedestinations.annotation.Destination
 import org.koin.androidx.compose.getViewModel
+import java.net.URLDecoder
 
 @Destination
 @Composable
@@ -29,9 +30,13 @@ fun EditGroupScreen(
 ) {
     val viewModel: EditGroupViewModel = getViewModel()
 
+    val decodedFormulaGroup = formulaGroup?.copy(
+        formulas = formulaGroup.formulas.map { it.copy(formula = URLDecoder.decode(it.formula, "UTF-8")) }
+    )
+
     EditGroupScreenStateless(
         isNewFormulaGroup = formulaGroup == null,
-        formulaGroup = formulaGroup ?: FormulaGroup("", listOf(FormulaEntry())),
+        formulaGroup = decodedFormulaGroup ?: FormulaGroup("", listOf(FormulaEntry())),
         onAddGroupClicked = { groupName, formulas -> viewModel.addLocalGroup(groupName, formulas) },
         onUpdateFormulaGroup = { groupName, formulas -> viewModel.updateGroup(groupName, formulas, formulaGroup) }
     )
@@ -60,10 +65,17 @@ fun EditGroupScreenStateless(
         ) {
             VerticalSpacer(distance = 16.dp)
 
-            Text(
-                text = stringResource(id = R.string.edit_group_screen_title),
-                style = MaterialTheme.typography.headlineLarge.copy(ColorPalette.Primary),
-            )
+            if (isNewFormulaGroup) {
+                Text(
+                    text = stringResource(id = R.string.edit_group_screen_title),
+                    style = MaterialTheme.typography.headlineLarge.copy(ColorPalette.Primary),
+                )
+            } else {
+                Text(
+                    text = stringResource(id = R.string.edit_group_screen_title),
+                    style = MaterialTheme.typography.headlineLarge.copy(ColorPalette.Primary),
+                )
+            }
 
             VerticalSpacer(distance = 24.dp)
 

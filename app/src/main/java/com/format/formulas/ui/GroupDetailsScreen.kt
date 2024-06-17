@@ -97,7 +97,6 @@ fun GroupDetailsScreenStateless(
     Column(
         modifier = Modifier
             .padding(24.dp)
-            .padding(bottom = 56.dp)
             .fillMaxSize()
             .verticalScroll(rememberScrollState()),
         verticalArrangement = Arrangement.spacedBy(8.dp),

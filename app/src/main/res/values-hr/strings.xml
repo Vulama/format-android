@@ -25,7 +25,8 @@
     <string name="download_screen_title">Preuzmi formulu</string>
     <string name="download_screen_button_label">Preuzmi grupu</string>
 
-    <string name="edit_group_screen_title">Kreiraj novu grupu</string>
+    <string name="edit_group_screen_title">Uredi grupu</string>
+    <string name="edit_group_screen_title_new">Kreiraj novu grupu</string>
     <string name="edit_group_screen_group_title">Naziv grupe</string>
     <string name="edit_group_screen_add_formula_button_label">Dodaj praznu formulu</string>
     <string name="edit_group_screen_create_group_button_label">Kreiraj lokalnu grupu formula</string>
@@ -40,4 +41,7 @@
     <string name="group_screen_publish_button_label">Objavi grupu</string>
     <string name="group_screen_edit_button_label">Uredi grupu</string>
     <string name="group_screen_remove_button_label">Ukloni grupu</string>
+
+    <string name="analytics_table_success_label">Razumije</string>
+    <string name="analytics_table_failure_label">Ne razumije</string>
 </resources>

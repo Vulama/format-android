@@ -12,8 +12,10 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.format.R
 import com.format.app.theme.ColorPalette
 
 @Composable
@@ -38,7 +40,7 @@ fun AnalyticsTable(
                     contentAlignment = Alignment.Center
                 ) {
                     Text(
-                        text = "Successes",
+                        text = stringResource(id = R.string.analytics_table_success_label),
                         color = ColorPalette.Primary,
                         fontSize = 16.sp,
                         modifier = Modifier.padding(vertical = 4.dp)
@@ -55,7 +57,7 @@ fun AnalyticsTable(
                     contentAlignment = Alignment.Center
                 ) {
                     Text(
-                        text = "Failures",
+                        text = stringResource(id = R.string.analytics_table_failure_label),
                         color = ColorPalette.Error.copy(0.7f),
                         fontSize = 16.sp,
                         modifier = Modifier.padding(vertical = 4.dp)
