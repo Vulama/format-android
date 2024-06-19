@@ -9,7 +9,11 @@ data class FormulaGroup(
     val id: Int = -1,
     val isFavourite: Boolean = false,
     val isLocal: Boolean = false,
-)
+) {
+    companion object {
+        val Empty = FormulaGroup("", emptyList())
+    }
+}
 
 @Serializable
 data class FormulaEntry(
