@@ -100,6 +100,9 @@ dependencies {
 
     // Unit Testing Dependencies
     testImplementation(libs.junit)
+    testImplementation (libs.kotlinx.coroutines.test)
+    testImplementation (libs.mockk)
+    testImplementation(libs.androidx.core.testing)
 
     // Android Testing Dependencies
     androidTestImplementation(libs.androidx.junit)
